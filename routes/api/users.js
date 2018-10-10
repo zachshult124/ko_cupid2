@@ -13,4 +13,12 @@ router
   .put(usersController.update)
   .delete(usersController.remove);
 
+// Matches with "/api/users/:id"
+router
+  .route("/:type")
+  .get(usersController.findByType)
+  .put(usersController.update)
+  .delete(usersController.remove);
+
+
 module.exports = router;
