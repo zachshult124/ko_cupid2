@@ -17,7 +17,13 @@ module.exports = {
   },
   findByType: function (req, res) {
     db.User
-      .findById(req.params.type)
+      .find({ type: "fighter" })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findByType: function (req, res) {
+    db.User
+      .find({ type: "referee" })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
