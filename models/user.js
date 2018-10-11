@@ -20,6 +20,16 @@ const userSchema = new Schema({
     },
     lat: { type: Number },
     lng: { type: Number },
+    phone: {
+        type: String,
+        validate: {
+            validator: function (v) {
+                return /\d{3}-\d{3}-\d{4}/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number!`
+        },
+        required: [true, 'User phone number required']
+    },
     date: { type: Date, default: Date.now }
 });
 
