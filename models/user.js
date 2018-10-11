@@ -12,7 +12,7 @@ const userSchema = new Schema({
     },
     matchesWon: { type: Number, default: 0 },
     matchesLost: { type: Number, default: 0 },
-    profilePic: { type: String, default: "" },
+    img: { data: Buffer, contentType: String },
     type: {
         type: String,
         enum: ["fighter", "referee"],
