@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './MapSolo.css';
 import axios from 'axios'
 import API from '../../utils/API';
+import refImage from '../../images/ref.png';
 
 
 class MapSolo extends Component {
@@ -54,6 +55,8 @@ class MapSolo extends Component {
         this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
         this.getVenues()
         this.getFighters()
+        this.getRefs()
+
         window.initMap = this.initMap;
     }
 
@@ -91,10 +94,10 @@ class MapSolo extends Component {
         API.getFighterTypes().then(response =>
             this.setState({ fighters: response.data }))
     }
-    // getRefs = () => {
-    //     API.getRefTypes().then(response =>
-    //         this.setState({ refs: response.data }))
-    // };
+    getRefs = () => {
+        API.getRefTypes().then(response =>
+            this.setState({ refs: response.data }))
+    };
 
     initMap = () => {
         console.log(this.state.userCurrLatLng)
@@ -136,47 +139,63 @@ class MapSolo extends Component {
             var contentString = fighters.name;
 
             // Create A Marker
-            var marker = new window.google.maps.Marker({
+            var icon = {
+                url: "http://icons.iconarchive.com/icons/google/noto-emoji-activities/256/52746-boxing-glove-icon.png", // url
+                scaledSize: new window.google.maps.Size(50, 50), // scaled size
+                origin: new window.google.maps.Point(0, 0), // origin
+                anchor: new window.google.maps.Point(0, 0) // anchor
+            };
+
+            var markerFight = new window.google.maps.Marker({
                 position: { lat: fighters.lat, lng: fighters.lng },
                 map: map,
-                title: fighters.name
+                title: fighters.name,
+                icon: icon
             })
 
             // Click on A Marker!
-            marker.addListener('click', function () {
+            markerFight.addListener('click', function () {
 
                 // Change the content
                 infowindow.setContent(contentString)
 
                 // Open An InfoWindow
-                infowindow.open(map, marker)
+                infowindow.open(map, markerFight)
             })
 
         })
 
         // // Display Dynamic Markers for Refs
-        // this.state.refs.map(function (refs) {
+        this.state.refs.map(function (refs) {
 
-        //     var contentString = refs.name;
+            var contentString = refs.name;
 
-        //     // Create A Marker
-        //     var marker = new window.google.maps.Marker({
-        //         position: { lat: refs.lat, lng: refs.lng },
-        //         map: map,
-        //         title: refs.name
-        //     })
+            var icon = {
+                url: refImage, // url
+                scaledSize: new window.google.maps.Size(50, 50), // scaled size
+                origin: new window.google.maps.Point(0, 0), // origin
+                anchor: new window.google.maps.Point(0, 0) // anchor
+            };
 
-        //     // Click on A Marker!
-        //     marker.addListener('click', function () {
+            // Create A Marker
+            var markerRef = new window.google.maps.Marker({
+                position: { lat: refs.lat, lng: refs.lng },
+                map: map,
+                title: refs.name,
+                icon: icon
+            })
 
-        //         // Change the content
-        //         infowindow.setContent(contentString)
+            // Click on A Marker!
+            markerRef.addListener('click', function () {
 
-        //         // Open An InfoWindow
-        //         infowindow.open(map, marker)
-        //     })
+                // Change the content
+                infowindow.setContent(contentString)
 
-        // })
+                // Open An InfoWindow
+                infowindow.open(map, markerRef)
+            })
+
+        })
 
 
 
