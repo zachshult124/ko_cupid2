@@ -3,6 +3,7 @@ import './MapSolo.css';
 import axios from 'axios'
 import API from '../../utils/API';
 import refImage from '../../images/ref.png';
+import battleImage from '../../images/battle64.png';
 
 
 class MapSolo extends Component {
@@ -53,9 +54,9 @@ class MapSolo extends Component {
             this.getLocationOptions
         );
         this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
-        this.getVenues()
         this.getFighters()
         this.getRefs()
+        this.getVenues()
 
         window.initMap = this.initMap;
     }
@@ -115,10 +116,18 @@ class MapSolo extends Component {
             var contentString = myVenue.name;
 
             // Create A Marker
+            var icon = {
+                url: battleImage,
+                scaledSize: new window.google.maps.Size(50, 50), // scaled size
+                origin: new window.google.maps.Point(0, 0), // origin
+                anchor: new window.google.maps.Point(0, 0) // anchor
+            };
+
             var marker = new window.google.maps.Marker({
                 position: { lat: myVenue.lat, lng: myVenue.lng },
                 map: map,
-                title: myVenue.name
+                title: myVenue.name,
+                icon: icon
             })
 
             // Click on A Marker!
@@ -172,7 +181,7 @@ class MapSolo extends Component {
 
             var icon = {
                 url: refImage, // url
-                scaledSize: new window.google.maps.Size(50, 50), // scaled size
+
                 origin: new window.google.maps.Point(0, 0), // origin
                 anchor: new window.google.maps.Point(0, 0) // anchor
             };
