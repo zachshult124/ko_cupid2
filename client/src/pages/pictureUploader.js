@@ -39,7 +39,7 @@ class PictureUploader extends React.Component {
 
   renderPicPreviews = () => {
     return this.state.srcs.map((src, idx) => {
-      return <img src={src} alt='Trip Picture' style={{ maxHeight: 200, maxWidth: 200 }} key={idx} />
+      return <img src={src} alt='Trip' style={{ maxHeight: 200, maxWidth: 200 }} key={idx} />
     })
   }
 
@@ -58,7 +58,7 @@ class PictureUploader extends React.Component {
 
 export default PictureUploader;
 
-{/* <input
+/*{ <input
   type="file"
   accept="image/*"
   id="fab-submit"
@@ -73,4 +73,4 @@ handleSubmit = event => {
     this.setState({ imgSrc: e.target.result });
   };
   reader.readAsDataURL(event.target.files[0]);
-}; */}
+}; }*/
