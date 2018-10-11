@@ -52,9 +52,8 @@ class MapSolo extends Component {
             this.getLocationOptions
         );
         this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
-        this.getFighters()
-        this.getRefs()
         this.getVenues()
+        this.getFighters()
         window.initMap = this.initMap;
     }
 
@@ -92,12 +91,10 @@ class MapSolo extends Component {
         API.getFighterTypes().then(response =>
             this.setState({ fighters: response.data }))
     }
-    getRefs = () => {
-        API.getRefTypes().then(response =>
-            this.setState({ refs: response.data }))
-    };
-
-
+    // getRefs = () => {
+    //     API.getRefTypes().then(response =>
+    //         this.setState({ refs: response.data }))
+    // };
 
     initMap = () => {
         console.log(this.state.userCurrLatLng)
@@ -157,29 +154,31 @@ class MapSolo extends Component {
 
         })
 
-        // Display Dynamic Markers for Refs
-        this.state.refs.map(function (referee) {
+        // // Display Dynamic Markers for Refs
+        // this.state.refs.map(function (refs) {
 
-            var contentString = referee.name;
+        //     var contentString = refs.name;
 
-            // Create A Marker
-            var marker = new window.google.maps.Marker({
-                position: { lat: referee.lat, lng: referee.lng },
-                map: map,
-                title: referee.name
-            })
+        //     // Create A Marker
+        //     var marker = new window.google.maps.Marker({
+        //         position: { lat: refs.lat, lng: refs.lng },
+        //         map: map,
+        //         title: refs.name
+        //     })
 
-            // Click on A Marker!
-            marker.addListener('click', function () {
+        //     // Click on A Marker!
+        //     marker.addListener('click', function () {
 
-                // Change the content
-                infowindow.setContent(contentString)
+        //         // Change the content
+        //         infowindow.setContent(contentString)
 
-                // Open An InfoWindow
-                infowindow.open(map, marker)
-            })
+        //         // Open An InfoWindow
+        //         infowindow.open(map, marker)
+        //     })
 
-        })
+        // })
+
+
 
     }
 
