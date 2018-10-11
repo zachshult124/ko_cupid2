@@ -6,7 +6,7 @@ const CardBtn = props => (
     onClick={props.onClick}
     className={`card-btn ${props["data-value"]}`}
     {...props}
-  />
+  >{props.action}</button>
 );
 
 export default CardBtn;
