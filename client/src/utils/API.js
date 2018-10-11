@@ -16,9 +16,9 @@ export default {
     return axios.get("https://ballup-turned-hoopsgram-api.herokuapp.com/api/courts/latLng/:lat/:lng")
   },
   getFighterTypes: function () {
-    return axios.get("/api/users/fighter/")
+    return axios.get("/api/users/type/fighter")
   },
   getRefTypes: function () {
-    return axios.get("/api/users/referee/")
+    return axios.get("/api/users/type/referee")
   }
 };
