@@ -4,17 +4,21 @@ import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import Row from "../components/Row";
 import Col from "../components/Col";
+import PicUploader from './pictureUploader';
+import API from '../utils/API'
 import axios from "axios"
 
 
-class Si extends Component {
+class Signup extends Component {
     // Setting the component's initial state
     state = {
         name: "",
         level: 0,
         bio: "",
         age: 18,
-        gender: "male"
+        gender: "male",
+        profilePic: ""
+
     };
 
     handleInputChange = event => {
@@ -31,20 +35,26 @@ class Si extends Component {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
 
-        // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
-        alert(`Hello ${this.state.firstName} ${this.state.lastName}`);
+        // call the api to create the account
+        API.createAccount(this.state).then(res => {
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    };
+
+    getPhotos = (srcs) => {
         this.setState({
-            firstName: "",
-            lastName: ""
-        });
-    };
+            profilePic: srcs[0]
+        })
+        return (
+            <div>
+                <img src={srcs[0]} key={0} alt="image" />
+            </div>
+        )
+    }
 
-    handleButtonClick = event => {
-        event.preventDefault();
 
-
-
-    };
     render() {
         // Notice how each input has a `value`, `name`, and `onChange` prop
         return (
@@ -86,9 +96,18 @@ class Si extends Component {
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
+                                {/* <input
+                                    value={this.state.image}
+                                    type="file"
+                                    multiple
+                                    accept="image/*"
+                                    id="fab-submit"
+                                    onChange={this.handleInputChange}
+                                /> */}
+                                <PicUploader title="profile picture" getPhotos={this.getPhotos} />
                                 <div>
 
-                                    <button type="submit" onClick={this.handleButtonClick}>Create an Account</button>
+                                    <button type="submit" onClick={this.handleFormSubmit}>Create an Account</button>
 
                                 </div>
                                 <Link to="/">Log in if you have an account</Link>
@@ -102,4 +121,4 @@ class Si extends Component {
 }
 
 
-export default Si;
+export default Signup;
