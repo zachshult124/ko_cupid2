@@ -17,17 +17,9 @@
   background: #E53935;
 }
 
-.pass::after {
-  content: "\f165";
-}
-
 .pick {
   right: 1%;
   background: #43A047;
-}
-
-.pick::after {
-  content: "\f164";
 }
 
 .pick:hover::after, .pass:hover::after {
