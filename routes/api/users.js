@@ -8,17 +8,20 @@ router.route("/")
 
 // Matches with "/api/users/:id"
 router
-  .route("/:id")
-  .get(usersController.findById)
-  .put(usersController.update)
-  .delete(usersController.remove);
-
-// Matches with "/api/users/:id"
-router
-  .route("/:type")
+  .route("/fighter")
   .get(usersController.findByType)
   .put(usersController.update)
   .delete(usersController.remove);
 
+router
+  .route("/referee")
+  .get(usersController.findByType)
+  .put(usersController.update)
+  .delete(usersController.remove);
+router
+  .route("/:id")
+  .get(usersController.findById)
+  .put(usersController.update)
+  .delete(usersController.remove);
 
 module.exports = router;

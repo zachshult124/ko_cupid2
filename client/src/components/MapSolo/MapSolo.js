@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MapSolo.css';
 import axios from 'axios'
+import API from '../../utils/API';
 
 
 class MapSolo extends Component {
@@ -50,9 +51,11 @@ class MapSolo extends Component {
             this.handleGetLocationError,
             this.getLocationOptions
         );
-        window.initMap = this.initMap;
         this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
+        this.getFighters()
+        this.getRefs()
         this.getVenues()
+        window.initMap = this.initMap;
     }
 
     componentWillMount() {
@@ -65,7 +68,6 @@ class MapSolo extends Component {
         script.src = url
         script.async = true
         script.defer = true
-        // index.parentNode.insertBefore(script, index)
         index.parentNode.appendChild(script);
     }
 
@@ -87,11 +89,15 @@ class MapSolo extends Component {
     }
 
     getFighters = () => {
-
-    };
+        API.getFighterTypes().then(response =>
+            this.setState({ fighters: response.data }))
+    }
     getRefs = () => {
-
+        API.getRefTypes().then(response =>
+            this.setState({ refs: response.data }))
     };
+
+
 
     initMap = () => {
         console.log(this.state.userCurrLatLng)
@@ -103,8 +109,8 @@ class MapSolo extends Component {
         // Create An InfoWindow
         var infowindow = new window.google.maps.InfoWindow()
 
-        // Display Dynamic Markers
-        this.state.venues.map(myVenue => {
+        // Display Dynamic Markers for Courts
+        this.state.venues.map(function (myVenue) {
 
             var contentString = myVenue.name;
 
@@ -126,6 +132,55 @@ class MapSolo extends Component {
             })
 
         })
+
+        // Display Dynamic Markers for Fighters
+        this.state.fighters.map(function (fighters) {
+
+            var contentString = fighters.name;
+
+            // Create A Marker
+            var marker = new window.google.maps.Marker({
+                position: { lat: fighters.lat, lng: fighters.lng },
+                map: map,
+                title: fighters.name
+            })
+
+            // Click on A Marker!
+            marker.addListener('click', function () {
+
+                // Change the content
+                infowindow.setContent(contentString)
+
+                // Open An InfoWindow
+                infowindow.open(map, marker)
+            })
+
+        })
+
+        // Display Dynamic Markers for Refs
+        this.state.refs.map(function (referee) {
+
+            var contentString = referee.name;
+
+            // Create A Marker
+            var marker = new window.google.maps.Marker({
+                position: { lat: referee.lat, lng: referee.lng },
+                map: map,
+                title: referee.name
+            })
+
+            // Click on A Marker!
+            marker.addListener('click', function () {
+
+                // Change the content
+                infowindow.setContent(contentString)
+
+                // Open An InfoWindow
+                infowindow.open(map, marker)
+            })
+
+        })
+
     }
 
     render() {
