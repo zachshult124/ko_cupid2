@@ -17,5 +17,11 @@ export default {
   },
   createAccount: function (user) {
     return axios.post("/api/users", user)
+  },
+  getFighterTypes: function () {
+    return axios.get("/api/users/type/fighter")
+  },
+  getRefTypes: function () {
+    return axios.get("/api/users/type/referee")
   }
 };

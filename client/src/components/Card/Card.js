@@ -1,6 +1,8 @@
 import React from "react";
 import CardBtn from "../CardBtn";
 import "./Card.css";
+import passImage from "../../images/x-mark.png";
+import pickImage from "../../images/glove.png";
 
 const Card = props => (
   <div
@@ -14,12 +16,14 @@ const Card = props => (
       style={{ opacity: props.image ? 1 : 0 }}
       onClick={props.handleBtnClick}
       data-value="pass"
+      image={passImage}
     />
     <CardBtn
       style={{ opacity: props.image ? 1 : 0 }}
       onClick={props.handleBtnClick}
       data-value="pick"
-    />
+      image={pickImage}
+    ></CardBtn>
   </div>
 );
 

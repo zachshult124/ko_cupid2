@@ -8,6 +8,12 @@ router.route("/")
 
 // Matches with "/api/users/:id"
 router
+  .route("/type/:type")
+  .get(usersController.findByType)
+  .put(usersController.update)
+  .delete(usersController.remove);
+
+router
   .route("/:id")
   .get(usersController.findById)
   .put(usersController.update)

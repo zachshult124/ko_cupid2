@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './MapSolo.css';
 import axios from 'axios'
+import API from '../../utils/API';
+import refImage from '../../images/ref.png';
+import battleImage from '../../images/battle64.png';
 
 
 class MapSolo extends Component {
@@ -50,9 +53,12 @@ class MapSolo extends Component {
             this.handleGetLocationError,
             this.getLocationOptions
         );
-        window.initMap = this.initMap;
         this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
+        this.getFighters()
+        this.getRefs()
         this.getVenues()
+
+        window.initMap = this.initMap;
     }
 
     componentWillMount() {
@@ -65,7 +71,6 @@ class MapSolo extends Component {
         script.src = url
         script.async = true
         script.defer = true
-        // index.parentNode.insertBefore(script, index)
         index.parentNode.appendChild(script);
     }
 
@@ -87,10 +92,12 @@ class MapSolo extends Component {
     }
 
     getFighters = () => {
-
-    };
+        API.getFighterTypes().then(response =>
+            this.setState({ fighters: response.data }))
+    }
     getRefs = () => {
-
+        API.getRefTypes().then(response =>
+            this.setState({ refs: response.data }))
     };
 
     initMap = () => {
@@ -103,16 +110,24 @@ class MapSolo extends Component {
         // Create An InfoWindow
         var infowindow = new window.google.maps.InfoWindow()
 
-        // Display Dynamic Markers
-        this.state.venues.map(myVenue => {
+        // Display Dynamic Markers for Courts
+        this.state.venues.map(function (myVenue) {
 
             var contentString = myVenue.name;
 
             // Create A Marker
+            var icon = {
+                url: battleImage,
+                scaledSize: new window.google.maps.Size(50, 50), // scaled size
+                origin: new window.google.maps.Point(0, 0), // origin
+                anchor: new window.google.maps.Point(0, 0) // anchor
+            };
+
             var marker = new window.google.maps.Marker({
                 position: { lat: myVenue.lat, lng: myVenue.lng },
                 map: map,
-                title: myVenue.name
+                title: myVenue.name,
+                icon: icon
             })
 
             // Click on A Marker!
@@ -126,6 +141,73 @@ class MapSolo extends Component {
             })
 
         })
+
+        // Display Dynamic Markers for Fighters
+        this.state.fighters.map(function (fighters) {
+
+            var contentString = fighters.name;
+
+            // Create A Marker
+            var icon = {
+                url: "http://icons.iconarchive.com/icons/google/noto-emoji-activities/256/52746-boxing-glove-icon.png", // url
+                scaledSize: new window.google.maps.Size(50, 50), // scaled size
+                origin: new window.google.maps.Point(0, 0), // origin
+                anchor: new window.google.maps.Point(0, 0) // anchor
+            };
+
+            var markerFight = new window.google.maps.Marker({
+                position: { lat: fighters.lat, lng: fighters.lng },
+                map: map,
+                title: fighters.name,
+                icon: icon
+            })
+
+            // Click on A Marker!
+            markerFight.addListener('click', function () {
+
+                // Change the content
+                infowindow.setContent(contentString)
+
+                // Open An InfoWindow
+                infowindow.open(map, markerFight)
+            })
+
+        })
+
+        // // Display Dynamic Markers for Refs
+        this.state.refs.map(function (refs) {
+
+            var contentString = refs.name;
+
+            var icon = {
+                url: refImage, // url
+
+                origin: new window.google.maps.Point(0, 0), // origin
+                anchor: new window.google.maps.Point(0, 0) // anchor
+            };
+
+            // Create A Marker
+            var markerRef = new window.google.maps.Marker({
+                position: { lat: refs.lat, lng: refs.lng },
+                map: map,
+                title: refs.name,
+                icon: icon
+            })
+
+            // Click on A Marker!
+            markerRef.addListener('click', function () {
+
+                // Change the content
+                infowindow.setContent(contentString)
+
+                // Open An InfoWindow
+                infowindow.open(map, markerRef)
+            })
+
+        })
+
+
+
     }
 
     render() {
