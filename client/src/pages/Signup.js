@@ -40,6 +40,7 @@ class Signup extends Component {
         }).catch(err => {
             console.log(err)
         })
+        this.props.history.push('/home');
     };
 
     getPhotos = (srcs) => {
@@ -48,7 +49,9 @@ class Signup extends Component {
         })
         return (
             <div>
+
                 <img src={srcs[0]} key={0} alt="profile" />
+
             </div>
         )
     }
