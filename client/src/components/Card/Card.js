@@ -6,7 +6,7 @@ import pickImage from "../../images/glove.png";
 
 const Card = props => (
   <div
-    className="card w-auto"
+    className="card"
     style={{
       backgroundImage: props.image ? `url(${props.image})` : "none"
     }}
