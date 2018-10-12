@@ -8,7 +8,6 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Wrapper from "./components/Wrapper";
 
-
 const App = () => (
   <Router>
     <div>
