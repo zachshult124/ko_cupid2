@@ -2,3 +2,9 @@
     height: 500px;
     width: auto;
 }
+
+.spinner {
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+}

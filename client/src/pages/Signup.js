@@ -6,7 +6,6 @@ import Row from "../components/Row";
 import Col from "../components/Col";
 import PicUploader from './pictureUploader';
 import API from '../utils/API'
-import axios from "axios"
 
 
 class Signup extends Component {
@@ -50,7 +49,9 @@ class Signup extends Component {
         })
         return (
             <div>
-                <img src={srcs[0]} key={0} alt="" />
+
+                <img src={srcs[0]} key={0} alt="profile" />
+
             </div>
         )
     }

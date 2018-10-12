@@ -18,10 +18,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 5,
     matchesLost: 18,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.9272207,
     lng: -87.70233584,
+    phone: "773-243-1500",
     date: new Date(Date.now())
   },
   {
@@ -33,10 +34,11 @@ const userSeed = [
     gender: "female",
     matchesWon: 7,
     matchesLost: 2,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.92875326,
     lng: -87.68448305,
+    phone: "312-555-1111",
     date: new Date(Date.now())
   },
   {
@@ -48,10 +50,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 87,
     matchesLost: 2,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.92798698,
     lng: -87.66663027,
+    phone: "773-242-1536",
     date: new Date(Date.now())
   },
   {
@@ -63,10 +66,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 34,
     matchesLost: 21,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.93794786,
     lng: -87.68654299,
+    phone: "312-456-7890",
     date: new Date(Date.now())
   },
   {
@@ -78,10 +82,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 1,
     matchesLost: 3,
-    profilePic: "",
+    img: "",
     type: "referee",
     lat: 41.94688579,
     lng: -87.70988894,
+    phone: "847-673-2119",
     date: new Date(Date.now())
   },
   {
@@ -93,10 +98,11 @@ const userSeed = [
     gender: "female",
     matchesWon: 115,
     matchesLost: 7,
-    profilePic: "",
+    img: "",
     type: "referee",
     lat: 41.94994993,
     lng: -87.69340944,
+    phone: "773-444-1945",
     date: new Date(Date.now())
   },
   {
@@ -108,10 +114,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 666,
     matchesLost: 222,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.90729404,
     lng: -87.64431429,
+    phone: "776-746-7835",
     date: new Date(Date.now())
   },
   {
@@ -123,10 +130,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 21,
     matchesLost: 18,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.90627199,
     lng: -87.67143679,
+    phone: "312-555-1114",
     date: new Date(Date.now())
   },
   {
@@ -138,10 +146,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 13,
     matchesLost: 2,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.90857157,
     lng: -87.65598726,
+    phone: "212-445-6758",
     date: new Date(Date.now())
   },
   {
@@ -153,10 +162,11 @@ const userSeed = [
     gender: "female",
     matchesWon: 4,
     matchesLost: 1,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.9065275,
     lng: -87.6384778,
+    phone: "773-212-8576",
     date: new Date(Date.now())
   },
   {
@@ -168,10 +178,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 12,
     matchesLost: 5,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.90703853,
     lng: -87.66731691,
+    phone: "312-576-9989",
     date: new Date(Date.now())
   },
   {
@@ -183,10 +194,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 16,
     matchesLost: 20,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.89835056,
     lng: -87.62989473,
+    phone: "312-577-9989",
     date: new Date(Date.now())
   },
   {
@@ -198,10 +210,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 35,
     matchesLost: 5,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.89783947,
     lng: -87.66937685,
+    phone: "312-576-9981",
     date: new Date(Date.now())
   },
   {
@@ -213,10 +226,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 21,
     matchesLost: 9,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.89272831,
     lng: -87.61925173,
+    phone: "312-576-9459",
     date: new Date(Date.now())
   },
   {
@@ -228,10 +242,11 @@ const userSeed = [
     gender: "female",
     matchesWon: 18,
     matchesLost: 12,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.88020424,
     lng: -87.64568758,
+    phone: "312-576-9219",
     date: new Date(Date.now())
   },
   {
@@ -243,10 +258,11 @@ const userSeed = [
     gender: "male",
     matchesWon: 11,
     matchesLost: 20,
-    profilePic: "",
+    img: "",
     type: "fighter",
     lat: 41.89170603,
     lng: -87.61478853,
+    phone: "311-576-9989",
     date: new Date(Date.now())
   }
 ];

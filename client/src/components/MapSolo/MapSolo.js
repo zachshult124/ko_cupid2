@@ -3,8 +3,8 @@ import './MapSolo.css';
 import axios from 'axios'
 import API from '../../utils/API';
 import refImage from '../../images/ref.png';
+import MDSpinner from 'react-md-spinner';
 import battleImage from '../../images/battle64.png';
-
 
 class MapSolo extends Component {
 
@@ -20,8 +20,18 @@ class MapSolo extends Component {
             lat: null,
             lng: null
         },
-        geolocationErr: false
+        geolocationErr: false,
+        venuesAPIHit: false,
+        areTilesLoaded: false
     }
+
+    gettingVenues = null;
+    gettingFighters = null;
+    gettingRefs = null;
+
+    venuesApiHit = false;
+    fightersApiHit = false;
+    refsApiHit = false;
 
     getLocationOptions = {
         enableHighAccuracy: true,
@@ -54,6 +64,11 @@ class MapSolo extends Component {
             this.getLocationOptions
         );
         this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
+
+        this.gettingVenues = this.getVenues();
+        this.gettingFighers = this.getFighters();
+        this.gettingRefs = this.getRefs();
+
         this.getFighters()
         this.getRefs()
         this.getVenues()
@@ -75,36 +90,63 @@ class MapSolo extends Component {
     }
 
     getVenues = () => {
+
         const endPoint = "https://ballup-turned-hoopsgram-api.herokuapp.com/api/courts/latLng/"
 
         axios.get(endPoint + this.state.userCurrLatLng.lat + "/" + this.state.userCurrLatLng.lng)
             .then(response => {
                 console.log(response)
                 this.setState({
-                    venues: response.data.courts, geolocationErr: false
+                    venues: response.data.courts, geolocationErr: false,
+                    venuesAPIHit: true
                 })
                 this.initMap()
+
             })
             .catch(error => {
                 console.log("ERROR!! " + error)
+
             })
 
     }
 
     getFighters = () => {
-        API.getFighterTypes().then(response =>
-            this.setState({ fighters: response.data }))
+
+        API.getFighterTypes().then(response => {
+            this.setState({
+                fighters: response.data,
+                fightersApiHit: true
+            })
+        })
+            .catch(error => {
+                console.log("ERROR!! " + error)
+
+            })
+
     }
+
     getRefs = () => {
-        API.getRefTypes().then(response =>
-            this.setState({ refs: response.data }))
-    };
+
+        API.getRefTypes().then(response => {
+            this.setState({ refs: response.data, refsApiHit: true })
+        })
+            .catch(error => {
+                console.log("ERROR!! " + error)
+
+            })
+
+    }
 
     initMap = () => {
         console.log(this.state.userCurrLatLng)
         var map = new window.google.maps.Map(document.getElementById('map'), {
             center: { lat: this.state.userCurrLatLng.lat, lng: this.state.userCurrLatLng.lng },
             zoom: 14
+        })
+
+        // Add listener for tilesloaded and update our areTilesloaded state to remove spinner
+        map.addListener('tilesloaded', () => {
+            this.setState({ areTilesLoaded: true })
         })
 
         // Create An InfoWindow
@@ -206,21 +248,23 @@ class MapSolo extends Component {
 
         })
 
-
-
     }
 
     render() {
         if (this.state.geolocationErr || (this.state.userCurrLatLng === this.state.prevCurrLatLng)) {
             this.getVenues();
         }
+
         return (
-            <main>
-                <div id="map"></div>
-            </main>
+            <div>
+                <main>
+                    <div id="map"></div>
+                </main>
+                {(!this.state.areTilesLoaded || !this.state.venuesAPIHit || !this.state.fightersApiHit || !this.state.refsApiHit) && <MDSpinner className='spinner' size={100} />}
+            </div>
         )
+
     }
 }
-
 
 export default MapSolo;
