@@ -12,8 +12,8 @@ import Wrapper from "./components/Wrapper";
 const App = () => (
   <Router>
     <div>
-      <Navbar />
-      <Wrapper>
+      <Navbar className="w-100" />
+      <Wrapper className="w-100">
         <Route exact path="/" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/home" component={Home} />
