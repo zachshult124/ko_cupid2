@@ -22,16 +22,11 @@ class MapSolo extends Component {
         },
         geolocationErr: false,
         venuesAPIHit: false,
-        areTilesLoaded: false
+        fightersAPIHit: false,
+        refsAPIHit: false,
+        areTilesLoaded: false,
+        mapLoaded: false
     }
-
-    gettingVenues = null;
-    gettingFighters = null;
-    gettingRefs = null;
-
-    venuesApiHit = false;
-    fightersApiHit = false;
-    refsApiHit = false;
 
     getLocationOptions = {
         enableHighAccuracy: true,
@@ -47,6 +42,7 @@ class MapSolo extends Component {
             prevCurrLatLng,
             userCurrLatLng
         })
+        this.getVenues(userCurrLatLng.lat, userCurrLatLng.lng)
     }
 
     handleGetLocationError = (err) => {
@@ -55,6 +51,7 @@ class MapSolo extends Component {
             geolocationErr: true,
             userCurrLatLng: { lat: 41.8781, lng: -87.6298 }
         })
+        this.getVenues(41.8781, -87.6298)
     }
 
     componentDidMount() {
@@ -63,17 +60,11 @@ class MapSolo extends Component {
             this.handleGetLocationError,
             this.getLocationOptions
         );
-        this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
+        window.initMap = this.initMap;
 
-        this.gettingVenues = this.getVenues();
-        this.gettingFighers = this.getFighters();
-        this.gettingRefs = this.getRefs();
 
         this.getFighters()
         this.getRefs()
-        this.getVenues()
-
-        window.initMap = this.initMap;
     }
 
     componentWillMount() {
@@ -87,27 +78,24 @@ class MapSolo extends Component {
         script.async = true
         script.defer = true
         index.parentNode.appendChild(script);
+        this.setState({ mapLoaded: true });
     }
 
-    getVenues = () => {
+    getVenues = (lat, lng) => {
 
         const endPoint = "https://ballup-turned-hoopsgram-api.herokuapp.com/api/courts/latLng/"
-
-        axios.get(endPoint + this.state.userCurrLatLng.lat + "/" + this.state.userCurrLatLng.lng)
+        axios.get(endPoint + lat + "/" + lng)
             .then(response => {
                 console.log(response)
                 this.setState({
                     venues: response.data.courts, geolocationErr: false,
                     venuesAPIHit: true
                 })
-                // this.initMap()
-
+                this.triggerInitMap();
             })
             .catch(error => {
                 console.log("ERROR!! " + error)
-
             })
-
     }
 
     getFighters = () => {
@@ -115,30 +103,31 @@ class MapSolo extends Component {
         API.getFighterTypes().then(response => {
             this.setState({
                 fighters: response.data,
-                fightersApiHit: true
+                fightersAPIHit: true
             })
+            this.triggerInitMap();
         })
             .catch(error => {
                 console.log("ERROR!! " + error)
-
             })
-
     }
 
     getRefs = () => {
 
         API.getRefTypes().then(response => {
-            this.setState({ refs: response.data, refsApiHit: true })
+            this.setState({ refs: response.data, refsAPIHit: true })
+            this.triggerInitMap();
         })
             .catch(error => {
                 console.log("ERROR!! " + error)
-
             })
-
     }
 
     initMap = () => {
         console.log(this.state.userCurrLatLng)
+        if (!this.state.userCurrLatLng.lat || !this.state.userCurrLatLng.lng) {
+            return;
+        }
         var map = new window.google.maps.Map(document.getElementById('map'), {
             center: { lat: this.state.userCurrLatLng.lat, lng: this.state.userCurrLatLng.lng },
             zoom: 14
@@ -258,20 +247,25 @@ class MapSolo extends Component {
 
     }
 
+
+    triggerInitMap = () => {
+        if (!this.state.mapLoaded && (this.state.venuesAPIHit || this.state.venues.length) && (this.state.fightersAPIHit || this.state.fighters.length) && (this.state.refsAPIHit || this.state.refs.length)) {
+            this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
+        }
+    }
+
     render() {
         if (this.state.geolocationErr || (this.state.userCurrLatLng === this.state.prevCurrLatLng)) {
-            this.getVenues();
+            this.getVenues(this.state.userCurrLatLng.lat, this.state.userCurrLatLng.lng);
         }
-
         return (
             <div>
                 <main>
                     <div id="map"></div>
                 </main>
-                {(!this.state.areTilesLoaded || !this.state.venuesAPIHit || !this.state.fightersApiHit || !this.state.refsApiHit) && <MDSpinner className='spinner' size={100} />}
+                {!this.state.areTilesLoaded && (!this.state.venues.length || !this.state.fighters.length || !this.state.refs.length) && <MDSpinner className='spinner' size={100} />}
             </div>
         )
-
     }
 }
 
