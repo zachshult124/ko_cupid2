@@ -40,7 +40,7 @@ class Carousel extends Component {
     };
 
     loadNextUser = () => {
-        API.getRandomUser()
+        API.getRandomFighter()
             .then(res =>
                 this.setState({
                     image: res.data.img
