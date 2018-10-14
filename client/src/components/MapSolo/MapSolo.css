@@ -8,3 +8,27 @@
     top: 50%;
     left: 50%;
 }
+
+.refImg {
+    width: 25%;
+    height: 25%;
+    border-radius: 50px;
+    margin-bottom: 15px;
+    float: right;
+}
+
+.fighterImg {
+    width: 25%;
+    height: 25%;
+    border-radius: 50px;
+    margin-bottom: 15px;
+    float: right;
+}
+
+.venueImg {
+    width: 25%;
+    height: 25%;
+    border-radius: 50px;
+    margin-bottom: 15px;
+    float: right;
+}

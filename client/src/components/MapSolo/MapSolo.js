@@ -144,7 +144,15 @@ class MapSolo extends Component {
         // Display Dynamic Markers for Courts
         this.state.venues.map(function (myVenue) {
 
-            var contentString = myVenue.name;
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">' + myVenue.name +
+                '<div id="bodyContent">' +
+                '<img src="' + myVenue.photos.url + '" class="venueImg" />' + '</br>' +
+                '<h5>' + myVenue.address + '</h5>' +
+                '</div>' +
+                '</div>';
 
             // Create A Marker
             var icon = {
@@ -176,8 +184,16 @@ class MapSolo extends Component {
         // Display Dynamic Markers for Fighters
         this.state.fighters.map(function (fighters) {
 
-            var contentString = fighters.name;
-            console.log("fighters.type");
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">' + fighters.name + ', Level: ' + fighters.level + '</h1>' +
+                '<div id="bodyContent">' +
+                '<img src="' + fighters.img + '" class="fighterImg" />' + '</br>' +
+                '<p>' + fighters.bio + '</p>' +
+                '</p>Need a ref to watch your fight? <b>Reach out now at :</b> ' + fighters.phone + '</p>' +
+                '</div>' +
+                '</div>';
 
             // Create A Marker
             var icon = {
@@ -212,15 +228,16 @@ class MapSolo extends Component {
             var contentString = '<div id="content">' +
                 '<div id="siteNotice">' +
                 '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">' + [refs.name] + '</h1>' +
+                '<h1 id="firstHeading" class="firstHeading">' + [refs.name] + ', Level: ' + refs.level + '</h1>' +
                 '<div id="bodyContent">' +
-                '<img src="' + refs.img + '" />' +
+                '<img src="' + refs.img + '" class="refImg" />' + '</br>' +
+                '<p>' + refs.bio + '</p>' +
+                '</p>Need a ref to watch your fight? <b>Reach out now at :</b> ' + refs.phone + '</p>' +
                 '</div>' +
                 '</div>';
 
             var icon = {
                 url: refImage, // url
-
                 origin: new window.google.maps.Point(0, 0), // origin
                 anchor: new window.google.maps.Point(0, 0) // anchor
             };
