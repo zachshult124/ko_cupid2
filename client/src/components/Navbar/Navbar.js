@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import "../../images/glove.png"
+import glove from "../../images/glove.png"
 
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
 const Navbar = props => (
   <nav className="navbar navbar-expand-lg navbar-light">
     <Link className="navbar-brand font-weight-bold text-white" to="/">
-      KO Cupid <span><img src="../../images/glove.png" alt="" /></span>
+      KO Cupid <span><img src={glove} alt="logo" /></span>
     </Link>
     <div className="">
       <ul className="navbar-nav">

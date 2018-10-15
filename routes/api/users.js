@@ -14,6 +14,10 @@ router
   .delete(usersController.remove);
 
 router
+  .route("/random")
+  .get(usersController.findRandom);
+
+router
   .route("/:id")
   .get(usersController.findById)
   .put(usersController.update)
