@@ -264,7 +264,6 @@ class MapSolo extends Component {
 
     }
 
-
     triggerInitMap = () => {
         if (!this.state.mapLoaded && (this.state.venuesAPIHit || this.state.venues.length) && (this.state.fightersAPIHit || this.state.fighters.length) && (this.state.refsAPIHit || this.state.refs.length)) {
             this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")

@@ -2,7 +2,7 @@
 
 _KO Cupid_ is a web application built for users to find the perfect fight for them. Users create an account or login, then are greeted with a map showing locations of fighters, refs, and matches/fights. On th same page those users can begin "passing" or "challenging" on other fighters. 
 
-### Deployment
+## Deployment
 
 * [Heroku](###)
 
@@ -29,6 +29,12 @@ Fully interactive and deployed on the Heroku link above.
 * **Chris Grant**
 * **Nico Cueva**
 
-### Issues
+## Credits
+
+![Reddit Comments](./client/src/images/reddit_img.png?raw=true "Reddit Comments")
+
+Credit to Reddit user's 'u/Disgruntled-Cacti' and 'u/SmellsLikeNostrils' for the inspiration!
+
+## Issues
 
 If any issues are found, please add them to the Repository's _Issues_ page. 
