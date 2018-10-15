@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
-import Container from "../components/Container";
-import Row from "../components/Row";
-import Col from "../components/Col";
+
+
+import API from '../utils/API'
+
 
 
 class Login extends Component {
@@ -38,37 +39,56 @@ class Login extends Component {
     render() {
         // Notice how each input has a `value`, `name`, and `onChange` prop
         return (
+            <body>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-xl-9 mx-auto">
+                            <div class="card card-signin flex-row my-5">
+                                <div class="card-img-left d-none d-md-flex">
 
-            <Container>
-                <Row>
-                    <Col size="md-12">
-                        <div>
+                                </div>
+                                <div class="card-body overflown">
+                                    <h5 class="card-title text-center">Login</h5>
+                                    <form className="form-signin">
+                                        <div class="form-label-group">First Name <br></br>
+                                            <input
+                                                value={this.state.name}
+                                                name="name"
+                                                onChange={this.handleInputChange}
+                                                type="text"
+                                                placeholder=" first name"
+                                            />
 
-                            <form className="form">
-                                <input
-                                    value={this.state.firstName}
-                                    name="firstName"
-                                    onChange={this.handleInputChange}
-                                    type="text"
-                                    placeholder="First Name"
-                                />
-                                <input
-                                    value={this.state.lastName}
-                                    name="lastName"
-                                    onChange={this.handleInputChange}
-                                    type="text"
-                                    placeholder="Last Name"
-                                />
-                                <Link to="/home">
-                                    <button >Login</button>
-                                </Link>
+                                        </div>
 
-                                <Link to="/signup">signup if you don't have an account</Link>
-                            </form>
+                                        <div class="form-label-group">Last Name <br></br>
+                                            <input
+                                                value={this.state.password}
+                                                name="name"
+                                                onChange={this.handleInputChange}
+                                                type="text"
+                                                placeholder="last name"
+                                            />
+
+                                        </div>
+
+
+
+                                        <Link to="/home"> <button class="btn btn-lg btn-block text-uppercase" type="submit" >Login</button></Link>
+                                        <Link to="/signup"><a class="d-block text-center mt-2 small">Signup</a></Link>
+                                        <hr class="my-4" />
+
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </Col>
-                </Row>
-            </Container>
+                    </div>
+                </div >
+            </body >
+
+
+
+
         );
     }
 }
