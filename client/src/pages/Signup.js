@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import Row from "../components/Row";
 import Col from "../components/Col";
-import PicUploader from './pictureUploader';
+// import PicUploader from './pictureUploader';
 import API from '../utils/API'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
@@ -39,7 +39,7 @@ class Signup extends Component {
         console.log(this.state)
 
         // call the api to create the account
-        API.createAccount(this.state).then(res => {
+        API.createAccount(this.state.name).then(res => {
             console.log(res.data)
         }).catch(err => {
             console.log(err)
@@ -110,27 +110,11 @@ class Signup extends Component {
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
-                                {/* <input
-                                    value={this.state.image}
-                                    type="file"
-                                    multiple
-                                    accept="image/*"
-                                    id="fab-submit"
-                                    onChange={this.handleInputChange}
-                                /> */}
-                                {/* <input
-                                    value={this.state.phone}
-                                    name="Phone Number"
-                                    onChange={this.handleInputChange}
-                                    type="Phone number"
-                                    placeholder="How old are you??"
-                                /> */}
-                                {/* <PhoneInput
-                                    placeholder="Enter phone number"
-                                    value={this.state.phone}
-                                    onChange={phone => this.setState({ phone })}
-                                /> */}
+
                                 <PicUploader title="profile picture" getPhotos={this.getPhotos} />
+
+                                {/* <PicUploader title="profile picture" getPhotos={this.getPhotos} /> */}
+
                                 <div>
 
                                     <button type="submit" onClick={this.handleFormSubmit}>Create an Account</button>
