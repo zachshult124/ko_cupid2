@@ -10,24 +10,24 @@
 }
 
 .refImg {
-    width: 25%;
-    height: 25%;
+    width: 35%;
+    height: 35%;
     border-radius: 50px;
     margin-bottom: 15px;
     float: right;
 }
 
 .fighterImg {
-    width: 25%;
-    height: 25%;
+    width: 35%;
+    height: 35%;
     border-radius: 50px;
     margin-bottom: 15px;
     float: right;
 }
 
 .venueImg {
-    width: 25%;
-    height: 25%;
+    width: 50%;
+    height: 50%;
     border-radius: 10px;
     margin-bottom: 15px;
     float: left;
@@ -47,4 +47,12 @@
     float: left;
     margin-right: 20px;
     margin-left: 5px;
+}
+
+.firstHeading {
+    max-width: 400px;
+}
+
+#bodyContent {
+    font-size: 12px;
 }
