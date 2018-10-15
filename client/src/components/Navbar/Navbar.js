@@ -9,7 +9,7 @@ const Navbar = props => (
     <Link className="navbar-brand font-weight-bold text-white" to="/">
       KO Cupid <span><img src="../../images/glove.png" alt="" /></span>
     </Link>
-    <div className="">
+    {/*<div className="">
       <ul className="navbar-nav">
         <li className="nav-item">
           <Link
@@ -49,7 +49,7 @@ const Navbar = props => (
           </Link>
         </li>
       </ul>
-    </div>
+          </div>*/}
   </nav>
 );
 
