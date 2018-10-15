@@ -28,9 +28,9 @@
 .venueImg {
     width: 25%;
     height: 25%;
-    border-radius: 50px;
+    border-radius: 10px;
     margin-bottom: 15px;
-    float: right;
+    float: left;
 }
 
 .fighterIcon {
