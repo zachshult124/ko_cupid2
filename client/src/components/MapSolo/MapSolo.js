@@ -144,7 +144,7 @@ class MapSolo extends Component {
         // Display Dynamic Markers for Courts
         this.state.venues.map(function (myVenue) {
 
-            var contentString = `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">${myVenue.name}<div id="bodyContent"><img src=${myVenue.photos[0].url} class="venueImg" /></br><h5>${myVenue.address}</h5></div></div>`;
+            var contentString = `<div id="content"><div id="siteNotice"></div><h1 id="firstHeading" class="firstHeading">${myVenue.name}<div id="bodyContent"><h6>${myVenue.address}</h6><img src=${myVenue.photos[0].url} class="venueImg" /></div></div>`;
 
             // Create A Marker
             var icon = {
