@@ -12,7 +12,7 @@ const Home = () => (
     <Container>
       <Row>
         <Col size="md-12">
-          <Carousel />
+          <Carousel className="w-100" />
         </Col>
       </Row>
     </Container>

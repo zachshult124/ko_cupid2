@@ -4,6 +4,7 @@ import axios from 'axios'
 import API from '../../utils/API';
 import refImage from '../../images/ref.png';
 import MDSpinner from 'react-md-spinner';
+import battleImage from '../../images/battle64.png';
 
 class MapSolo extends Component {
 
@@ -21,16 +22,11 @@ class MapSolo extends Component {
         },
         geolocationErr: false,
         venuesAPIHit: false,
-        areTilesLoaded: false
+        fightersAPIHit: false,
+        refsAPIHit: false,
+        areTilesLoaded: false,
+        mapLoaded: false
     }
-
-    gettingVenues = null;
-    gettingFighters = null;
-    gettingRefs = null;
-
-    venuesApiHit = false;
-    fightersApiHit = false;
-    refsApiHit = false;
 
     getLocationOptions = {
         enableHighAccuracy: true,
@@ -46,6 +42,7 @@ class MapSolo extends Component {
             prevCurrLatLng,
             userCurrLatLng
         })
+        this.getVenues(userCurrLatLng.lat, userCurrLatLng.lng)
     }
 
     handleGetLocationError = (err) => {
@@ -54,6 +51,7 @@ class MapSolo extends Component {
             geolocationErr: true,
             userCurrLatLng: { lat: 41.8781, lng: -87.6298 }
         })
+        this.getVenues(41.8781, -87.6298)
     }
 
     componentDidMount() {
@@ -62,14 +60,11 @@ class MapSolo extends Component {
             this.handleGetLocationError,
             this.getLocationOptions
         );
-        this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
-
-        this.gettingVenues = this.getVenues();
-        this.gettingFighers = this.getFighters();
-        this.gettingRefs = this.getRefs();
-
-
         window.initMap = this.initMap;
+
+
+        this.getFighters()
+        this.getRefs()
     }
 
     componentWillMount() {
@@ -83,27 +78,24 @@ class MapSolo extends Component {
         script.async = true
         script.defer = true
         index.parentNode.appendChild(script);
+        this.setState({ mapLoaded: true });
     }
 
-    getVenues = () => {
+    getVenues = (lat, lng) => {
 
         const endPoint = "https://ballup-turned-hoopsgram-api.herokuapp.com/api/courts/latLng/"
-
-        axios.get(endPoint + this.state.userCurrLatLng.lat + "/" + this.state.userCurrLatLng.lng)
+        axios.get(endPoint + lat + "/" + lng)
             .then(response => {
                 console.log(response)
                 this.setState({
                     venues: response.data.courts, geolocationErr: false,
                     venuesAPIHit: true
                 })
-                this.initMap()
-
+                this.triggerInitMap();
             })
             .catch(error => {
                 console.log("ERROR!! " + error)
-
             })
-
     }
 
     getFighters = () => {
@@ -111,31 +103,31 @@ class MapSolo extends Component {
         API.getFighterTypes().then(response => {
             this.setState({
                 fighters: response.data,
-                fightersApiHit: true
+                fightersAPIHit: true
             })
+            this.triggerInitMap();
         })
             .catch(error => {
                 console.log("ERROR!! " + error)
-
             })
-
-
     }
 
     getRefs = () => {
 
         API.getRefTypes().then(response => {
-            this.setState({ refs: response.data, refsApiHit: true })
+            this.setState({ refs: response.data, refsAPIHit: true })
+            this.triggerInitMap();
         })
             .catch(error => {
                 console.log("ERROR!! " + error)
-
             })
-
     }
 
     initMap = () => {
         console.log(this.state.userCurrLatLng)
+        if (!this.state.userCurrLatLng.lat || !this.state.userCurrLatLng.lng) {
+            return;
+        }
         var map = new window.google.maps.Map(document.getElementById('map'), {
             center: { lat: this.state.userCurrLatLng.lat, lng: this.state.userCurrLatLng.lng },
             zoom: 14
@@ -152,13 +144,29 @@ class MapSolo extends Component {
         // Display Dynamic Markers for Courts
         this.state.venues.map(function (myVenue) {
 
-            var contentString = myVenue.name;
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">' + myVenue.name +
+                '<div id="bodyContent">' +
+                '<img src="' + myVenue.photos.url + '" class="venueImg" />' + '</br>' +
+                '<h5>' + myVenue.address + '</h5>' +
+                '</div>' +
+                '</div>';
 
             // Create A Marker
+            var icon = {
+                url: battleImage,
+                scaledSize: new window.google.maps.Size(50, 50), // scaled size
+                origin: new window.google.maps.Point(0, 0), // origin
+                anchor: new window.google.maps.Point(0, 0) // anchor
+            };
+
             var marker = new window.google.maps.Marker({
                 position: { lat: myVenue.lat, lng: myVenue.lng },
                 map: map,
-                title: myVenue.name
+                title: myVenue.name,
+                icon: icon
             })
 
             // Click on A Marker!
@@ -176,7 +184,16 @@ class MapSolo extends Component {
         // Display Dynamic Markers for Fighters
         this.state.fighters.map(function (fighters) {
 
-            var contentString = fighters.name;
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">' + fighters.name + ', Level: ' + fighters.level + '</h1>' +
+                '<div id="bodyContent">' +
+                '<img src="' + fighters.img + '" class="fighterImg" />' + '</br>' +
+                '<p>' + fighters.bio + '</p>' +
+                '</p>Need a ref to watch your fight? <b>Reach out now at :</b> ' + fighters.phone + '</p>' +
+                '</div>' +
+                '</div>';
 
             // Create A Marker
             var icon = {
@@ -208,11 +225,19 @@ class MapSolo extends Component {
         // // Display Dynamic Markers for Refs
         this.state.refs.map(function (refs) {
 
-            var contentString = refs.name;
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">' + [refs.name] + ', Level: ' + refs.level + '</h1>' +
+                '<div id="bodyContent">' +
+                '<img src="' + refs.img + '" class="refImg" />' + '</br>' +
+                '<p>' + refs.bio + '</p>' +
+                '</p>Need a ref to watch your fight? <b>Reach out now at :</b> ' + refs.phone + '</p>' +
+                '</div>' +
+                '</div>';
 
             var icon = {
                 url: refImage, // url
-                scaledSize: new window.google.maps.Size(50, 50), // scaled size
                 origin: new window.google.maps.Point(0, 0), // origin
                 anchor: new window.google.maps.Point(0, 0) // anchor
             };
@@ -239,22 +264,26 @@ class MapSolo extends Component {
 
     }
 
+
+    triggerInitMap = () => {
+        if (!this.state.mapLoaded && (this.state.venuesAPIHit || this.state.venues.length) && (this.state.fightersAPIHit || this.state.fighters.length) && (this.state.refsAPIHit || this.state.refs.length)) {
+            this.loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC2WljOFv9ujHKJWIgMsrE4Wj3bZA5nBZk&callback=initMap")
+        }
+    }
+
     render() {
         if (this.state.geolocationErr || (this.state.userCurrLatLng === this.state.prevCurrLatLng)) {
-            this.getVenues();
+            this.getVenues(this.state.userCurrLatLng.lat, this.state.userCurrLatLng.lng);
         }
-
         return (
             <div>
                 <main>
                     <div id="map"></div>
                 </main>
-                {(!this.state.areTilesLoaded || !this.state.venuesAPIHit || !this.state.fightersApiHit || !this.state.refsApiHit) && <MDSpinner className='spinner' size={100} />}
+                {!this.state.areTilesLoaded && (!this.state.venues.length || !this.state.fighters.length || !this.state.refs.length) && <MDSpinner className='spinner' size={100} />}
             </div>
         )
-
     }
 }
-
 
 export default MapSolo;

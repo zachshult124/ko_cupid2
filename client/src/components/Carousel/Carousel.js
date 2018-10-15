@@ -12,7 +12,7 @@ class Carousel extends Component {
 
     // When the component mounts, load the next dog to be displayed
     componentDidMount() {
-        this.loadNextDog();
+        this.loadNextUser();
     }
 
     handleBtnClick = event => {
@@ -36,14 +36,14 @@ class Carousel extends Component {
         }
         // Replace our component's state with newState, load the next dog image
         this.setState(newState);
-        this.loadNextDog();
+        this.loadNextUser();
     };
 
-    loadNextDog = () => {
-        API.getRandomDog()
+    loadNextUser = () => {
+        API.getRandomFighter()
             .then(res =>
                 this.setState({
-                    image: res.data.message
+                    image: res.data.img
                 })
             )
             .catch(err => console.log(err));

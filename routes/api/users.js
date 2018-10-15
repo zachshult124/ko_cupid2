@@ -13,10 +13,14 @@ router
   .put(usersController.update)
   .delete(usersController.remove);
 
+
+router
+  .route("/random")
+  .get(usersController.findRandom)
+
 router
   .route("/:id")
   .get(usersController.findById)
   .put(usersController.update)
   .delete(usersController.remove);
-
 module.exports = router;
