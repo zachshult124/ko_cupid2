@@ -186,8 +186,8 @@ class MapSolo extends Component {
 
             var contentString = '<div id="content">' +
                 '<div id="siteNotice">' +
-                '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">' + fighters.name + ', Level: ' + fighters.level + '</h1>' +
+                '</div>' + '<img src="http://icons.iconarchive.com/icons/google/noto-emoji-activities/256/52746-boxing-glove-icon.png" class="fighterIcon" /><h1 id="firstHeading" class="firstHeading">' + fighters.name + '</h1>' +
+                '<h6>Matches Won: ' + fighters.matchesWon + '</h6>' + '<h6>Matches Lost: ' + fighters.matchesLost + '</h6>' +
                 '<div id="bodyContent">' +
                 '<img src="' + fighters.img + '" class="fighterImg" />' + '</br>' +
                 '<p>' + fighters.bio + '</p>' +
@@ -228,7 +228,8 @@ class MapSolo extends Component {
             var contentString = '<div id="content">' +
                 '<div id="siteNotice">' +
                 '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">' + [refs.name] + ', Level: ' + refs.level + '</h1>' +
+                '</div>' + '<img src=' + refImage + 'class="refIcon"' + '/>' + '<h1>' + refs.name + '</h1>' +
+                '<h6>Level: ' + refs.level + '</h6>' +
                 '<div id="bodyContent">' +
                 '<img src="' + refs.img + '" class="refImg" />' + '</br>' +
                 '<p>' + refs.bio + '</p>' +
