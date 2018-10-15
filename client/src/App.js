@@ -7,7 +7,7 @@ import Search from "./pages/Search";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Wrapper from "./components/Wrapper";
-import Signup2 from "./pages/Signup2";
+
 
 const App = () => (
   <Router>
@@ -15,8 +15,8 @@ const App = () => (
       <Navbar className="w-100" />
       <Wrapper className="w-100">
         <Route exact path="/" component={Login} />
+
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/signup2" component={Signup2} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/search" component={Search} />
       </Wrapper>
