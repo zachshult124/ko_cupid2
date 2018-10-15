@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     name: { type: String, required: true },
-    level: { type: Number, required: true },
+    level: { type: Number, required: true, default: 0 },
     bio: { type: String },
     age: { type: Number, required: true },
     gender: {
@@ -20,16 +20,20 @@ const userSchema = new Schema({
     },
     lat: { type: Number },
     lng: { type: Number },
-    phone: {
-        type: String,
-        validate: {
-            validator: function (v) {
-                return /\d{3}-\d{3}-\d{4}/.test(v);
-            },
-            message: props => `${props.value} is not a valid phone number!`
-        },
-        required: [true, 'User phone number required']
-    },
+    phone: { type: String },
+    // phone: {
+    //     type: String,
+    //     validate: {
+    //         validator: function (v) {
+    //             return /\d{3}-\d{3}-\d{4}/.test(v);
+    //         },
+    //         message: props => `${props.value} is not a valid phone number!`
+    //     },
+    //     required: [true, 'User phone number required']
+    // },
+    // phone: {
+    //     PhoneInput
+    // },
     date: { type: Date, default: Date.now }
 });
 

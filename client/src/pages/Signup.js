@@ -6,6 +6,8 @@ import Row from "../components/Row";
 import Col from "../components/Col";
 import PicUploader from './pictureUploader';
 import API from '../utils/API'
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 
 class Signup extends Component {
@@ -13,10 +15,11 @@ class Signup extends Component {
     state = {
         name: "",
         level: 0,
+        phone: "",
         bio: "",
         age: 18,
         gender: "male",
-        profilePic: ""
+        img: ""
 
     };
 
@@ -33,6 +36,7 @@ class Signup extends Component {
     handleFormSubmit = event => {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
+        console.log(this.state)
 
         // call the api to create the account
         API.createAccount(this.state).then(res => {
@@ -45,7 +49,7 @@ class Signup extends Component {
 
     getPhotos = (srcs) => {
         this.setState({
-            profilePic: srcs[0]
+            img: srcs[0]
         })
         return (
             <div>
@@ -73,13 +77,21 @@ class Signup extends Component {
                                     type="text"
                                     placeholder="Enter your name"
                                 />
-                                <input
+                                {/* <input
                                     value={this.state.level}
                                     name="level"
                                     onChange={this.handleInputChange}
                                     type="number"
                                     placeholder="0-1000 how tough are you??"
-                                />
+                                /> */}
+                                {/* <label>
+                                    Level : 0
+                                </label> */}
+
+                                <PhoneInput
+                                    placeholder="Enter phone number"
+                                    value={this.state.phone}
+                                    onChange={phone => this.setState({ phone })} />
                                 <textarea
                                     value={this.state.bio}
                                     name="bio"
@@ -105,6 +117,18 @@ class Signup extends Component {
                                     accept="image/*"
                                     id="fab-submit"
                                     onChange={this.handleInputChange}
+                                /> */}
+                                {/* <input
+                                    value={this.state.phone}
+                                    name="Phone Number"
+                                    onChange={this.handleInputChange}
+                                    type="Phone number"
+                                    placeholder="How old are you??"
+                                /> */}
+                                {/* <PhoneInput
+                                    placeholder="Enter phone number"
+                                    value={this.state.phone}
+                                    onChange={phone => this.setState({ phone })}
                                 /> */}
                                 <PicUploader title="profile picture" getPhotos={this.getPhotos} />
                                 <div>
