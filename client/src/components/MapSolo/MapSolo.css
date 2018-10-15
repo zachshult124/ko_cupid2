@@ -32,3 +32,19 @@
     margin-bottom: 15px;
     float: right;
 }
+
+.fighterIcon {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
+.refIcon {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-right: 20px;
+    margin-left: 5px;
+}
