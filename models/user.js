@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     name: { type: String, required: true },
-    level: { type: Number, required: true, default: 0 },
+    level: { type: Number, required: true, defult: 1 },
     bio: { type: String },
     age: { type: Number, required: true },
     gender: {
         type: String,
-        enum: ["male", "female"]
+        enum: ["male", "female", "other"]
     },
     matchesWon: { type: Number, default: 0 },
     matchesLost: { type: Number, default: 0 },
