@@ -144,15 +144,7 @@ class MapSolo extends Component {
         // Display Dynamic Markers for Courts
         this.state.venues.map(function (myVenue) {
 
-            var contentString = '<div id="content">' +
-                '<div id="siteNotice">' +
-                '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">' + myVenue.name +
-                '<div id="bodyContent">' +
-                '<img src="' + myVenue.photos.url + '" class="venueImg" />' + '</br>' +
-                '<h5>' + myVenue.address + '</h5>' +
-                '</div>' +
-                '</div>';
+            var contentString = `<div id="content"><div id="siteNotice"></div><h3 id="firstHeading" class="firstHeading">${myVenue.name}<div id="bodyContent"><p>${myVenue.address}</p><img src=${myVenue.photos[0].url} class="venueImg" /></div></div>`;
 
             // Create A Marker
             var icon = {
@@ -184,16 +176,7 @@ class MapSolo extends Component {
         // Display Dynamic Markers for Fighters
         this.state.fighters.map(function (fighters) {
 
-            var contentString = '<div id="content">' +
-                '<div id="siteNotice">' +
-                '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">' + fighters.name + ', Level: ' + fighters.level + '</h1>' +
-                '<div id="bodyContent">' +
-                '<img src="' + fighters.img + '" class="fighterImg" />' + '</br>' +
-                '<p>' + fighters.bio + '</p>' +
-                '</p>Need a ref to watch your fight? <b>Reach out now at :</b> ' + fighters.phone + '</p>' +
-                '</div>' +
-                '</div>';
+            var contentString = `<div id="content"><div id="siteNotice"></div><img src="http://icons.iconarchive.com/icons/google/noto-emoji-activities/256/52746-boxing-glove-icon.png" class="fighterIcon" /><h2 id="firstHeading" class="firstHeading">${fighters.name}</h2><h6>Matches Won: ${fighters.matchesWon}</h6><h6>Matches Lost: ${fighters.matchesLost}</h6><div id="bodyContent"><img src=${fighters.img} class="fighterImg" /></br><p>${fighters.bio}</p></p>Need a ref to watch your fight? <b>Reach out now at :</b>${fighters.phone}</p></div></div>`;
 
             // Create A Marker
             var icon = {
@@ -225,16 +208,7 @@ class MapSolo extends Component {
         // // Display Dynamic Markers for Refs
         this.state.refs.map(function (refs) {
 
-            var contentString = '<div id="content">' +
-                '<div id="siteNotice">' +
-                '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">' + [refs.name] + ', Level: ' + refs.level + '</h1>' +
-                '<div id="bodyContent">' +
-                '<img src="' + refs.img + '" class="refImg" />' + '</br>' +
-                '<p>' + refs.bio + '</p>' +
-                '</p>Need a ref to watch your fight? <b>Reach out now at :</b> ' + refs.phone + '</p>' +
-                '</div>' +
-                '</div>';
+            var contentString = `<div id="content"><div id="siteNotice"></div></div><img src=${refImage} class="refIcon"/><h1>${refs.name}</h1><h6>Level: ${refs.level}</h6><div id="bodyContent"><img src=${refs.img} class="refImg" /></br><p>${refs.bio}</p></p>Need a ref to watch your fight? <b>Reach out now at :</b> ${refs.phone}</p></div></div>`;
 
             var icon = {
                 url: refImage, // url
@@ -261,7 +235,6 @@ class MapSolo extends Component {
             })
 
         })
-
     }
 
     triggerInitMap = () => {
