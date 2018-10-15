@@ -68,7 +68,7 @@ class Signup extends Component {
                                 <div class="card-img-left d-none d-md-flex">
 
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body overflown">
                                     <h5 class="card-title text-center">Register</h5>
                                     <form className="form-signin">
                                         <div class="form-label-group">Name <br></br>
