@@ -4,7 +4,7 @@ _KO Cupid_ is a web application built for users to find the perfect fight for th
 
 ## Deployment
 
-* [Heroku](###)
+* [Heroku](https://kocupid.herokuapp.com/)
 
 Fully interactive and deployed on the Heroku link above. 
 
